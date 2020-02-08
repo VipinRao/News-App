@@ -1,0 +1,68 @@
+{%extends "layout.html"%}
+{%block content%}
+
+<div class="content-section">
+  <form class="" action="" method="post" style="color:#4c1d04">
+    {{form.hidden_tag()}}
+    <fieldset class="form-group" >
+      <legend class="border-bottom mb-4" >Search News</legend>
+      <!-- <h5 class="border-bottom mb-5">Select any one category, (default : business)</h5> -->
+      <div class="form-group">
+        {{form.business(class="form-control-input")}}
+        {{form.business.label(class="form-control-label")}}
+
+        {{form.entertainment(class="form-control-input")}}
+        {{form.entertainment.label(class="form-control-label")}}
+
+        {{form.health(class="form-control-input")}}
+        {{form.health.label(class="form-control-label")}}
+
+        {{form.science(class="form-control-input")}}
+        {{form.science.label(class="form-control-label")}}
+
+        {{form.sports(class="form-control-input")}}
+        {{form.sports.label(class="form-control-label")}}
+
+        {{form.technology(class="form-control-input")}}
+        {{form.technology.label(class="form-control-label")}}
+      </div>
+      <div class="form-group">
+        {{form.keyword.label(class="form-control-label")}}
+
+        {%if form.keyword.errors%}
+            {{form.keyword(class="form-control form-control-lg is-invalid")}}
+            <div class="invalid-feedback">
+              {%for error in form.keyword.errors%}
+                <span>{{error}}</span>
+              {%endfor%}
+            </div>
+        {%else%}
+          {{form.keyword(class="form-control form-control-lg")}}
+        {%endif%}
+      </div>
+    </fieldset>
+    <div class="form-group">
+      {{form.submit(class="btn btn-outline-info")}}
+    </div>
+  </form>
+</div>
+
+<a href="https://newsapi.org/" target="_blank"> News Api</a>
+  {%for post in posts%}
+    <article class="media content-section">
+      <div class="media-body">
+        <div class="article-metadata">
+          Source: {{ post.source.name }}
+          <small class="text-muted">{{ post.publishedAt }}</small>
+        </div>
+        <br>
+        <div>
+          <img src="{{post.urlToImage}}" alt="{{post.source.name}}" class="img-thumbnail">
+        </div>
+        <h3><a class="article-title" href="#">{{ post.title }}</a></h3>
+        <p class="article-content">{{ post.description }}</p>
+        <a href="{{post.url}}" target="_blank">{{post.url}}</a>
+      </div>
+    </article>
+  {%endfor%}
+{%endblock content%}
